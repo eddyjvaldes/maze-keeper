@@ -1,12 +1,12 @@
-# AbstractGameElement
+# GameElement
 
-Clase abstracta que contiene los principales atributos y comportamientos de las clases BaseInteractiveElement y BaseStaticElement.
+Clase abstracta que contiene los principales atributos y comportamientos de los elementos interactivos y estáticos
 
 ## Propiedades
 
 - **name** (string):
 - **position** (vector2): posición del elemento en el mapa.
-- **obstacle** (bool): indica si el elemento es pasable o no.
+- **passable** (bool): indica si el elemento es pasable o no.
 
 ## Métodos
 

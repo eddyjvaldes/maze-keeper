@@ -6,14 +6,16 @@ Mapa del juego, contiene una una matriz de la clase MapCell.
 
 ## Propiedades
 
-- **obstacleDensity** (int): densidad de obtáculos, mayor valor representa mayor cantidad de obstáculos con respecto al tamaño del mapa.
+- **mapRows**(int): almacena las dimensiones del mapa.
 - **map** (MapCell[,]): mapa del juego.
+- **density** (int): regula la densidad de elementos en el mapa, a mayor valor más elemenetos tendrá el mapa.
 
 ## Métodos
 
-- **+ Map** (int dimension, int obstacleDensity, Character[] character): constructor de clase que genera el mapa y coloca los staticElement (coloca los muros exteriores del mapa), coloca las fichas.
-  - **AddRandomElement**: añade elementos estáticos en el mapa de forma aleatoria.
+- **+ Map** (int dimension, Hero[] hero): constructor de clase que genera el mapa y coloca los staticElement (coloca los muros exteriores del mapa), coloca las fichas.
+  - **AddRandomElement** (string name): añade elementos estáticos en el mapa de forma aleatoria.
   - **IsMapAccessible**: devuelve true si el mapa es accesible.
-    - **CheckCells**: método recursivo que recorre el mapa analizando la accesibilidad.
-- **+ Getmap**: get the map of game.
-- **- AddInteractiveElement** (int turn): cada cierto intervalo de turnos agrega elementos interativos en el mapa de forma aleatoria.
+    - **CheckCells** (int x, int y, bool[] checkMask): método recursivo que recorre el mapa analizando la accesibilidad.
+- **+ GetCell**: get  array de celdas.
+- **+ AddGems**: añade gemas de forma aleatoria al mapa.
+- **+ AddTramps**: añade trampas de forma aleatorial al mapa.
