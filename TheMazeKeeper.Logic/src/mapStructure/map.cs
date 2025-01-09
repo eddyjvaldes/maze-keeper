@@ -1,4 +1,5 @@
 using TheMazeKeeper.Logic.GameElement;
+using TheMazeKeeper.Logic.GameCharacter;
 
 namespace TheMazeKeeper.Logic.MapStructure
 {
@@ -8,7 +9,7 @@ namespace TheMazeKeeper.Logic.MapStructure
         MapCell[,] map;
         int density;
 
-        public Map(int mapRows, int characters) //Character[] characters
+        public Map(int mapRows, Hero[] heroes)
         {
             //Init Map
             this.mapRows = mapRows; 
@@ -25,18 +26,24 @@ namespace TheMazeKeeper.Logic.MapStructure
 
             for (int i = 0; i < mapRows; i++)
             {
-                map[0, i].PlaceElement(new Static("mapWall", 0, i));
-                map[i, mapRows - 1].PlaceElement(new Static("mapWall", i, mapRows - 1));
-                map[mapRows - 1, i].PlaceElement(new Static("mapWall", mapRows - 1, i));
-                map[i, 0].PlaceElement(new Static("mapWall", i, 0));
+                map[0, i].PlaceElement(new Static("map Wall", 0, i));
+                map[i, mapRows - 1].PlaceElement(new Static("map Wall", i, mapRows - 1));
+                map[mapRows - 1, i].PlaceElement(new Static("map Wall", mapRows - 1, i));
+                map[i, 0].PlaceElement(new Static("map Wall", i, 0));
             }
 
-            /*Place character
-            for (int i = 0; i < characters.Length; i++)
-                map[characters[i].GetPosition.x, characters[i].GetPosition.y].AddOccupant(characters[i]);
-            */
+            //Place heroes
+            for (int i = 0; i < heroes.Length; i++)
+            {
+                int x = (int)heroes[i].Position.X;
+                int y = (int)heroes[i].Position.Y;
+                
+                if (map[x, y].IsAccessible())
+                    map[x, y].AddOccupant(heroes[i]);
+            }
+
             //Add Elements
-            density = characters; //characters.Length;
+            density = heroes.Length;
             
             //Generate Obstacle
             int count = 0;
@@ -54,12 +61,12 @@ namespace TheMazeKeeper.Logic.MapStructure
                     
                     lastObstacle = addRandomElement(obstacles[obstacle]);
                 }
-                while(IsMapAccessible()); 
+                while(IsMapAccessible());
 
                 lastObstacle.RemoveElement();
                 count++;
             }
-            while(count < density * mapRows/2);            
+            while(count < density);            
 
             //Generate Gem
 
@@ -112,8 +119,8 @@ namespace TheMazeKeeper.Logic.MapStructure
 
             do
             {
-            x = random.Next(mapRows);
-            y = random.Next(mapRows);
+            x = random.Next(1, mapRows - 2);
+            y = random.Next(1, mapRows - 2);
             }
             while (!map[x, y].IsPassable());
 
@@ -135,12 +142,6 @@ namespace TheMazeKeeper.Logic.MapStructure
             return check;
         }
 
-        public MapCell[,] GetCell
-        {
-            get
-            {
-                return map;
-            }
-        }        
+        public MapCell[,] GetCell { get => map; }  
     }
 }

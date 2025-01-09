@@ -8,28 +8,10 @@ namespace TheMazeKeeper.Logic.GameElement
         protected Vector2 position;
         protected bool passable;
 
-        public string Getname
-        {
-            get
-            {
-                return name;
-            }
-        }
+        public bool IsPassable { get => passable; }
 
-        public Vector2 GetPosition
-        {
-            get
-            {
-                return position;
-            }
-        }
+        public string Getname { get => name; }
 
-        public bool IsPassable
-        {
-            get
-            {
-                return passable;
-            }
-        }
+        public Vector2 GetPosition { get => position; }
     }
 }

@@ -1,57 +1,17 @@
+using TheMazeKeeper.Logic.GameCharacter;
 using TheMazeKeeper.Logic.GameElement;
 
 namespace TheMazeKeeper.Logic.MapStructure
 {
     class MapCell
     {
-        // Character? occupant;
+        Hero? occupant;
         Element? gameElement;
 
-        //public bool IsAccessible()
-        //{
-        //    bool check = false;
-
-        //    if (occupant == null && gameElement.IsPassable)
-        //        check = true;
-        //    
-        //    return check;
-        //}
-
-        //Doble check por parte de la clase Hero y MapCell, mejorable.
-        //public void AddOccupant(Character character)
-        //{
-        //    if (occupant == null && gameElement.IsPassable)
-        //        occupant = character;
-        //}
-
-        public bool IsValidForPlacement()
-        {
-            bool check = false;
-
-            if (gameElement == null)  //&& occupant == null
-                check = true;
-            
-            return check;
-        }
-
-        //Doble check por parte de la clase Map y MapCell, mejorable.
         public void PlaceElement(Element element)
         {
             if (gameElement == null)
                 gameElement = element;
-        }
-
-        public Element GetElement
-        {
-            get
-            {
-                return gameElement;
-            }
-        }
-
-        public void RemoveElement()
-        {
-            gameElement = null;
         }
 
         public bool IsPassable()
@@ -64,5 +24,51 @@ namespace TheMazeKeeper.Logic.MapStructure
 
             return check;
         }
+
+        public bool IsValidForPlacement()
+        {
+            bool check = false;
+
+            if (gameElement == null && occupant == null)
+                check = true;
+            
+            return check;
+        }
+
+        public void AddOccupant(Hero hero)
+        {
+            if (occupant == null)
+            {
+                if (gameElement == null)
+                    occupant = hero;
+                else if (gameElement.IsPassable)
+                    occupant = hero;
+            }
+        }
+
+        public bool IsAccessible()
+        {
+            bool check = false;
+
+            if (occupant == null)
+            {
+                if (gameElement == null)
+                    check = true;
+                else if (gameElement.IsPassable)
+                    check = true;
+            }
+
+            return check;
+        }
+
+        public void RemoveElement() { gameElement = null; }
+
+        public bool HasElement()
+        {
+            return gameElement != null;
+        }
+        public Element? GetElement { get => gameElement; }
+
+        public Hero? GetOccupant { get => occupant; }
     }
 }

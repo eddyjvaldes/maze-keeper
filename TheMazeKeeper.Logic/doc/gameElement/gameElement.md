@@ -1,6 +1,6 @@
 # GameElement
 
-Clase abstracta que contiene los principales atributos y comportamientos de los elementos interactivos y estáticos
+Clase abstracta que contiene los principales atributos y comportamientos de los elementos del juego.
 
 ## Propiedades
 
@@ -10,6 +10,6 @@ Clase abstracta que contiene los principales atributos y comportamientos de los 
 
 ## Métodos
 
+- **+ IsPassable**:
 - **+ GetName**:
 - **+ GetPosition**:
-- **+ IsPassable**:

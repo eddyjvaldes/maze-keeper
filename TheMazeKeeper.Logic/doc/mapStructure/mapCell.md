@@ -9,10 +9,12 @@ Unidad básica del mapa que se encarga de contener los elementos del juego.
 
 ## Métodos
 
-- **+ IsAccessible** (): devuelve true si ocupante es null y gameElement es pasable o null.
-- **+ AddOccupant** (Hero hero): añade ficha a occupant si occupant es null y gameElement pasable.
+- **+ PlaceElement** (Element element): añade un elemento a la celda si esta no contiene ningún elemento.
+- **+ IsPassable** (): devuelve true si la celda no contiene elemento o si de contener uno este es pasable.
 - **+ IsValidForPlacement** (): devuelve true si gameElement es null y occupant es null.
-- **+ PlaceElement** (Element element): añade un GameElement a gameElement si IsValidForPlacement es true.
-- **+ GetElement**:
+- **+ AddOccupant** (Hero hero): añade ficha a occupant si occupant es null y gameElement es null o pasable.
+- **+ IsAccessible** (): devuelve true si ocupante es null y gameElement es pasable o null.
 - **+ RemoveElement** (): hace gameElement = null.
-- **+ IsPassable** (): devuelve true si gameElement es pasable.
+- **+ HasElement** (): devuelve true si la casilla contiene algún elemento.
+- **+ GetElement**:
+- **+ GetOccupant**:

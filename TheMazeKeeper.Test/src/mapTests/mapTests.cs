@@ -1,18 +1,50 @@
+using System.Numerics;
+using TheMazeKeeper.Logic.GameCharacter;
 using TheMazeKeeper.Logic.GameElement;
 using TheMazeKeeper.Logic.MapStructure;
 
 namespace TheMazeKeeper.MapTests
 {
-    public class MapGeneratorTests
+    public class MapTests
     {
-        [Fact]
-        public void TestGenerateMap_CreatesValidMap()
+        [Theory]
+        [InlineData(75)]
+        [InlineData(105)]
+        [InlineData(125)]
+        public void TestGenerateMap_CreatesValidMap(int mapDimension)
         {
-            Map testMap = new Map(50, 4);
+            Map testMap = GenerateTestMap(mapDimension, 1);
 
             Assert.True(VerifyMapBordersAreWalls(testMap));
             Assert.True(VerifyMapHasAtLeastOneObstacle(testMap));
             Assert.True(VerifyMapIsAccessible(testMap));
+        }
+
+        [Theory]
+        [InlineData(75, 2)]
+        [InlineData(105, 3)]
+        [InlineData(125, 4)]
+        public void TestHeroPlacementOnMap(int mapDimension, int numberOfHeroes)
+        {
+            Map testMap = GenerateTestMap(mapDimension, numberOfHeroes);
+
+            Assert.True(VerifyHeroPlacement(testMap));
+            Assert.True(VerifyHeroOnBlockedCell(testMap));
+        }
+
+        private Map GenerateTestMap(int dimension, int numberOfHeroes)
+        {
+            Vector2[] heroesPositions = {new Vector2(1, 1), new Vector2(dimension - 2, dimension - 2),
+                                        new Vector2(1, dimension - 2), new Vector2(dimension - 2, 1)};
+
+            Hero[] heroes = new Hero[numberOfHeroes];
+
+            for (int i = 0; i < numberOfHeroes; i++)
+            {
+                heroes[i] = new Hero("Titania the Swift", (int)heroesPositions[i].X, (int)heroesPositions[i].Y);
+            }
+
+            return new Map(dimension, heroes);
         }
 
         private bool VerifyMapBordersAreWalls(Map map)
@@ -23,8 +55,12 @@ namespace TheMazeKeeper.MapTests
             {
                 bool check = true;
 
-                if (map.GetCell[x, y].GetElement.Getname != "mapWall")
-                    check = false;
+                if (map.GetCell[x, y].HasElement())
+                {
+                    if (map.GetCell[x, y].GetElement.Getname != "map Wall")
+                        check = false;
+                }
+                else check = false;
 
                 return check;
             }
@@ -109,6 +145,40 @@ namespace TheMazeKeeper.MapTests
                     if (!accessibleCells[i, j])
                         check = false;
                 }
+            }
+
+            return check;
+        }
+
+        private bool VerifyHeroPlacement(Map map)
+        {
+            bool check = true;
+
+            int dimension = map.GetCell.GetLength(0);
+            List<Vector2> heroesPositions = new List<Vector2>{new Vector2(1, 1), new Vector2(dimension - 2, dimension - 2),
+                                        new Vector2(1, dimension - 2), new Vector2(dimension - 2, 1)};  
+
+            foreach (MapCell cell in map.GetCell)
+            {
+                if (cell.GetOccupant is Hero)
+                    check = heroesPositions.Remove(cell.GetOccupant.Position);
+            }
+
+            return check;      
+        }
+
+        private bool VerifyHeroOnBlockedCell(Map map)
+        {
+            bool check = true;
+
+            foreach (MapCell cell in map.GetCell)
+            {
+                if (cell.GetOccupant is Hero)
+                    if (!cell.IsPassable())
+                    {
+                        check = false;
+                        break;
+                    }
             }
 
             return check;
