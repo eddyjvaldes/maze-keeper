@@ -1,6 +1,6 @@
 # Gem
 
-Clase que ofrece un ligero efecto positivo a los character y aumenta los puntos de los jugadores.
+Clase que aumenta los puntos de los jugadores.
 
 ## Propiedades
 
@@ -8,4 +8,6 @@ Clase que ofrece un ligero efecto positivo a los character y aumenta los puntos 
 
 ## Métodos
 
-- **+ Gem** (int x, int y, points): constructor de clase
+- **+ Gem** (int x, int y, points): constructor de clase.
+- **+ Grow**: la gema aumenta la cantidad de puntos que ofrece.
+- **+ GetPoints**:

@@ -1,10 +1,13 @@
 using System.Numerics;
+using TheMazeKeeper.Logic.GameElement;
+using TheMazeKeeper.Logic.GameManagement;
 using TheMazeKeeper.Logic.MapStructure;
 
 namespace TheMazeKeeper.Logic.GameCharacter
 {
     class Hero
     {
+        Player player;
         string name;
         Vector2 position;
         int maxEnergy;
@@ -15,8 +18,9 @@ namespace TheMazeKeeper.Logic.GameCharacter
         List<Status> listStates = new List<Status>();
         
         //name, (maxEnegy, iniciative, Power)
-        public Hero(string name, int x, int y)
+        public Hero(Player player, string name, int x, int y)
         {
+            this.player = player;
             position = new Vector2(x, y);
 
             Dictionary<string, (int, int, string)> herosBase = new Dictionary<string, (int, int, string)>
@@ -37,14 +41,28 @@ namespace TheMazeKeeper.Logic.GameCharacter
         }
 
         //Debido a los bordes exteriores del mapa no es necesario revisar el rango
-        public void MoveDirection(Vector2 direction, MapCell[,] map)
+        public void MoveDirection(Vector2 direction, MapCell[,] map, int currentTurn)
         {
                 Vector2 newPosition = position + direction;
+                MapCell newCell = map[(int)newPosition.X, (int)newPosition.Y];
 
-                if (map[(int)newPosition.X, (int)newPosition.Y].IsAccessible()) 
+                if (newCell.IsAccessible()) 
                 {
                    position = newPosition;
                    currentEnergy--;
+
+                   if (newCell.HasElement())
+                   {
+                        if (newCell.GetElement is Gem)
+                        {
+                            Gem gem = (Gem)newCell.GetElement;
+                            player.AddScore(gem.GetPoints);
+                        }   
+                        else if (newCell.GetElement is Interactive)
+                        {
+                            ApplyNewStatus(newCell.GetElement.Getname, currentEnergy);
+                        }
+                   }
                 }
         }
 

@@ -8,7 +8,7 @@ namespace TheMazeKeeper.Logic.GameElement
         {
             position = new Vector2(x, y);
 
-            Dictionary<string, bool> baseStatic = new Dictionary<string, bool>
+            Dictionary<string, bool> staticBase = new Dictionary<string, bool>
             {
                 {"map Wall", false},
                 {"tree", false},
@@ -16,7 +16,7 @@ namespace TheMazeKeeper.Logic.GameElement
             };
 
             this.name = name;
-            passable = baseStatic[name];
+            passable = staticBase[name];
         }
     }
 }

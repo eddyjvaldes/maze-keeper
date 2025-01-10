@@ -1,6 +1,7 @@
 using System.Numerics;
 using TheMazeKeeper.Logic.GameCharacter;
 using TheMazeKeeper.Logic.GameElement;
+using TheMazeKeeper.Logic.GameManagement;
 using TheMazeKeeper.Logic.MapStructure;
 
 namespace TheMazeKeeper.MapTests
@@ -41,7 +42,7 @@ namespace TheMazeKeeper.MapTests
 
             for (int i = 0; i < numberOfHeroes; i++)
             {
-                heroes[i] = new Hero("Titania the Swift", (int)heroesPositions[i].X, (int)heroesPositions[i].Y);
+                heroes[i] = new Hero(new Player("testPlayer"),"Titania the Swift", (int)heroesPositions[i].X, (int)heroesPositions[i].Y);
             }
 
             return new Map(dimension, heroes);

@@ -4,6 +4,7 @@ Clase que define las fichas jugables (héroes) por los players. La clase la comp
 
 ## Propiedades
 
+- **player** (Player): player que controla el héroe.
 - **name** (string):
 - **position** (Vector2): posición de la ficha en el mapa.
 
@@ -19,8 +20,8 @@ Clase que define las fichas jugables (héroes) por los players. La clase la comp
 
 ## Métodos
 
-- **+ hero** (string name, int x, int y): constructor de clase que contiene un diccionario con todos los héroes del juego y sus parámetros.
-- **+ MoveDirection** (Vector2  direction, MapCell[,] map): mueve la ficha a una celda en la direción selecionada si esta es accesible, de ser posible el movimiento, disminuye la energía del personaje en uno.
+- **+ hero** (Player player, string name, int x, int y): constructor de clase que contiene un diccionario con todos los héroes del juego y sus parámetros.
+- **+ MoveDirection** (Vector2  direction, MapCell[,] map): mueve la ficha a una celda en la direción selecionada si esta es accesible, de ser posible el movimiento, disminuye la energía del personaje en uno y si la nueva celda contiene algún elemento interactivo le aplica sus efectos al héroe.
 - **+ UsePower** (int currentTurn): activa el poder de la ficha si la energía de la ficha lo permite, de ser así reduce la energía de esta según el costo del poder.
 - **+ HeroRecovery** (): restablece los valores por currentEnergy y currentIniciative de la ficha.
 - **+ UpdateStatusEffects** (int currentTurnj): aplica efectos de todos los Status en listStates al player. Si algún Status término su duración lo remueve.

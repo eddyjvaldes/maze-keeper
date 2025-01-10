@@ -16,9 +16,12 @@ namespace TheMazeKeeper.Logic.GameCharacter
 
             Dictionary<string, (int, int, int)> statesBase = new Dictionary<string, (int, int, int)>
             {
-                {"Adrenaline Boost", (4, 3, 0)},
+                {"Adrenaline Boost", (3, 3, 0)},
                 {"Reflexive Frenzy", (2, 0, 3)},
                 {"Surge of Momentum", (3, 1, 2)},
+
+                {"Drained", (3, -2, 0)},
+                {"Slowed", (2, 0, -3)},
             };
 
             this.name = name;

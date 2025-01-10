@@ -1,5 +1,6 @@
 using TheMazeKeeper.Logic.GameElement;
 using TheMazeKeeper.Logic.GameCharacter;
+using System.Reflection.Metadata;
 
 namespace TheMazeKeeper.Logic.MapStructure
 {
@@ -67,12 +68,71 @@ namespace TheMazeKeeper.Logic.MapStructure
                 count++;
             }
             while(count < density);            
-
-            //Generate Gem
-
-
-            //Generate Tramp
         }
+
+        //Generate Gem
+        public void AddRandomGem(int number, int currentTurn)
+        {
+            int x;
+            int y;
+            Random random = new Random();
+
+            for (int i = 0; i < number; i++)
+            {
+                do
+                {
+                    x = random.Next(mapRows);
+                    y = random.Next(mapRows);
+                }
+                while (!map[x, y].IsValidForPlacement());
+                map[x, y].PlaceElement(new Gem(currentTurn/density + 1,currentTurn, x, y));
+            }
+        }
+
+        //Generate Tramp
+        public void AddRandomTramp(int number, int currentTurn)
+        {
+            string[] tramps = {"Energy Siphon", "Sluggish Field"};
+            Random random = new Random();
+            int tramp;
+
+            int x;
+            int y;
+
+            for (int i = 0; i < number; i++)
+            {
+                do
+                {
+                    x = random.Next(mapRows);
+                    y = random.Next(mapRows);
+                }
+                while (!map[x, y].IsValidForPlacement());
+
+                tramp = random.Next(tramps.Length);
+                map[x, y].PlaceElement(new Tramp(tramps[tramp],currentTurn, x, y));
+            }
+        }
+
+        //Element collector
+        public void elementCollector(int currentTurn)
+        {
+            foreach (MapCell cell in map)
+            {
+                if (cell.HasElement())
+                {
+                    if (cell.GetElement is Interactive)
+                    {
+                        Interactive element = (Interactive)cell.GetElement;
+
+                        if (element.Duration > currentTurn)
+                            cell.RemoveElement();
+                    }
+                }
+            }
+        }
+
+        
+        //Generate Static elements
 
         MapCell addRandomElement(string element)
         {

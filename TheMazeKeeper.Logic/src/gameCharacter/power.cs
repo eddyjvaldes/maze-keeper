@@ -13,8 +13,8 @@ namespace TheMazeKeeper.Logic.GameCharacter
         {
             Dictionary<string, (string, int, int)> PowersBase = new Dictionary<string, (string, int, int)>
             {
-                {"Adrenaline Rush", ("Adrenaline Boost", 8, 3)},
-                {"Swift Reflexes", ("Reflexive Frenzy", 3, 2)},
+                {"Adrenaline Rush", ("Adrenaline Boost", 8, 4)},
+                {"Swift Reflexes", ("Reflexive Frenzy", 3, 3)},
                 {"Quick Surge", ("Surge of Momentum", 5, 3)},
             };
 

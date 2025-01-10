@@ -4,19 +4,18 @@ using TheMazeKeeper.Logic.MapStructure;
 
 namespace TheMazeKeeper.Logic.GameManagement
 {
-    class HeroController
+    class Player
     {
         string name;
         int score = 0;
-        Hero hero;
+        Hero? hero;
 
-        HeroController(string name, Hero hero)
+        public Player(string name)
         {
             this.name = name;
-            this.hero = hero;
         }
 
-        public bool Move(int direction, MapCell[,] map)
+        public bool Move(int direction, MapCell[,] map, int currentDuration)
         {
             int check = hero.Energy;
 
@@ -24,19 +23,19 @@ namespace TheMazeKeeper.Logic.GameManagement
             {
                 //check above
                 case 1:
-                    hero.MoveDirection(new Vector2(-1, 0), map);
+                    hero.MoveDirection(new Vector2(-1, 0), map, currentDuration);
                     break;
                 //check under
                 case 2:
-                    hero.MoveDirection(new Vector2(1, 0), map);
+                    hero.MoveDirection(new Vector2(1, 0), map, currentDuration);
                     break;
                 //check right
                 case 3:
-                    hero.MoveDirection(new Vector2(0, 1), map);
+                    hero.MoveDirection(new Vector2(0, 1), map, currentDuration);
                     break;
                 //check left
                 case 4:
-                    hero.MoveDirection(new Vector2(0, -1), map);
+                    hero.MoveDirection(new Vector2(0, -1), map, currentDuration);
                     break;
             }
 
@@ -50,6 +49,16 @@ namespace TheMazeKeeper.Logic.GameManagement
             hero.UsePower(currentTurn);
 
             return check != hero.Power.Cooldown;
-        } 
+        }
+
+        public void AddScore(int points)
+        {
+            score+= points;
+        }
+
+        public void AddHero(Hero hero)
+        {
+            this.hero = hero;
+        }
     }
 }
