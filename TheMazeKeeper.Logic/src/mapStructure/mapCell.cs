@@ -61,12 +61,26 @@ namespace TheMazeKeeper.Logic.MapStructure
             return check;
         }
 
-        public void RemoveElement() { gameElement = null; }
+        public void RemoveElement()
+        { 
+            gameElement = null; 
+        }
+
+        public void RemoveOccupant () 
+        {
+            occupant = null;
+        }
 
         public bool HasElement()
         {
             return gameElement != null;
         }
+
+        public bool HasOccupant()
+        {
+            return occupant != null;
+        }
+
         public Element? GetElement { get => gameElement; }
 
         public Hero? GetOccupant { get => occupant; }

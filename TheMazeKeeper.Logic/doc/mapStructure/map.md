@@ -19,6 +19,6 @@ Mapa del juego, contiene una una matriz de la clase MapCell.
 - **AddRandomElement** (string name): añade elementos estáticos en el mapa de forma aleatoria.
 - **IsMapAccessible**: devuelve true si el mapa es accesible.
   - **CheckCells** (int x, int y, bool[] checkMask): método recursivo que recorre el mapa analizando la accesibilidad.
-- **+ GetCell**: get  array de celdas.
+- **+ GetCells**: get  array de celdas.
 - **+ AddGems**:  añade gemas de forma aleatoria en el mapa según la densidad.
 - **+ AddTramps**: añade trampas de forma aleatorial en el mapa según la densidad.

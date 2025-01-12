@@ -15,3 +15,5 @@ Clase que contiene todo lo referente a los usuarios, permitiendo la interacción
 - **+ UsePower**: devuelve un bool que verfica si fue posbile activar el poder del héroe.
 - **+ AddScore** (int points): agrega puntos al player.
 - **+ AddHero** (Hero hero): agrega ub héroe al player.
+- **+ Name**: get name.
+- **+ GetHero**:

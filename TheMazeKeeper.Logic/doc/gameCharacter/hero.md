@@ -29,6 +29,6 @@ Clase que define las fichas jugables (héroes) por los players. La clase la comp
 - **+ ApplyNewStatus** (string statusName, int currentTurn): agrega y aplica un estado sobre el player.
 - **+ Name**: get name.
 - **+ Position**: get position.
-- **+ Energy**: get currentEnergy
-- **+ Iniciative**: get currentIniciative.
-- **+ Power**: get power
+- **+ GetEnergy**: get currentEnergy
+- **+ GetIniciative**: get currentIniciative.
+- **+ GetPower**: get power

@@ -56,9 +56,9 @@ namespace TheMazeKeeper.MapTests
             {
                 bool check = true;
 
-                if (map.GetCell[x, y].HasElement())
+                if (map.GetCells[x, y].HasElement())
                 {
-                    if (map.GetCell[x, y].GetElement.Getname != "map Wall")
+                    if (map.GetCells[x, y].GetElement.Getname != "map Wall")
                         check = false;
                 }
                 else check = false;
@@ -66,11 +66,11 @@ namespace TheMazeKeeper.MapTests
                 return check;
             }
 
-            for (int i = 0; i < map.GetCell.GetLength(0); i++)
+            for (int i = 0; i < map.GetCells.GetLength(0); i++)
             {
                 if (!(IsWall(0, i) &&
-                      IsWall(i, map.GetCell.GetLength(0) - 1) &&
-                      IsWall(map.GetCell.GetLength(0) - 1, i) &&
+                      IsWall(i, map.GetCells.GetLength(0) - 1) &&
+                      IsWall(map.GetCells.GetLength(0) - 1, i) &&
                       IsWall(i, 0)))
                 { 
                     check = false;
@@ -85,11 +85,11 @@ namespace TheMazeKeeper.MapTests
         {
             bool check = false;
 
-            for (int i = 1; i < map.GetCell.GetLength(0) - 1; i++)
+            for (int i = 1; i < map.GetCells.GetLength(0) - 1; i++)
             {
-                for (int j = 1; j < map.GetCell.GetLength(0) - 1; j++)
+                for (int j = 1; j < map.GetCells.GetLength(0) - 1; j++)
                 {
-                    if (map.GetCell[i, j].GetElement is Static)
+                    if (map.GetCells[i, j].GetElement is Static)
                     {
                         check = true;
                         break;
@@ -109,7 +109,7 @@ namespace TheMazeKeeper.MapTests
                 {
                     checkMask[x, y] = true;
 
-                    if (map.GetCell[x, y].IsPassable())
+                    if (map.GetCells[x, y].IsPassable())
                     {
                         CheckCells(x - 1, y, checkMask); //check above
                         CheckCells(x + 1, y, checkMask); //check under
@@ -119,7 +119,7 @@ namespace TheMazeKeeper.MapTests
                 }
             }
     
-            bool[,] accessibleCells = new bool[map.GetCell.GetLength(0), map.GetCell.GetLength(0)];
+            bool[,] accessibleCells = new bool[map.GetCells.GetLength(0), map.GetCells.GetLength(0)];
 
             //Initial MapCell for check
             Random random = new Random();
@@ -128,10 +128,10 @@ namespace TheMazeKeeper.MapTests
 
             do
             {
-            x = random.Next(map.GetCell.GetLength(0));
-            y = random.Next(map.GetCell.GetLength(0));
+            x = random.Next(map.GetCells.GetLength(0));
+            y = random.Next(map.GetCells.GetLength(0));
             }
-            while (!map.GetCell[x, y].IsPassable());
+            while (!map.GetCells[x, y].IsPassable());
 
             //Check map
             CheckCells(x, y, accessibleCells);
@@ -139,9 +139,9 @@ namespace TheMazeKeeper.MapTests
             //Check accesibleCells
             bool check = true;
 
-            for (int i = 1; i < map.GetCell.GetLength(0) - 1; i++)
+            for (int i = 1; i < map.GetCells.GetLength(0) - 1; i++)
             {
-                for (int j = 1; j < map.GetCell.GetLength(0) - 1; j++)
+                for (int j = 1; j < map.GetCells.GetLength(0) - 1; j++)
                 {
                     if (!accessibleCells[i, j])
                         check = false;
@@ -155,11 +155,11 @@ namespace TheMazeKeeper.MapTests
         {
             bool check = true;
 
-            int dimension = map.GetCell.GetLength(0);
+            int dimension = map.GetCells.GetLength(0);
             List<Vector2> heroesPositions = new List<Vector2>{new Vector2(1, 1), new Vector2(dimension - 2, dimension - 2),
                                         new Vector2(1, dimension - 2), new Vector2(dimension - 2, 1)};  
 
-            foreach (MapCell cell in map.GetCell)
+            foreach (MapCell cell in map.GetCells)
             {
                 if (cell.GetOccupant is Hero)
                     check = heroesPositions.Remove(cell.GetOccupant.Position);
@@ -172,7 +172,7 @@ namespace TheMazeKeeper.MapTests
         {
             bool check = true;
 
-            foreach (MapCell cell in map.GetCell)
+            foreach (MapCell cell in map.GetCells)
             {
                 if (cell.GetOccupant is Hero)
                     if (!cell.IsPassable())

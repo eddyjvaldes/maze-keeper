@@ -1,6 +1,5 @@
 using TheMazeKeeper.Logic.GameElement;
 using TheMazeKeeper.Logic.GameCharacter;
-using System.Reflection.Metadata;
 
 namespace TheMazeKeeper.Logic.MapStructure
 {
@@ -67,17 +66,21 @@ namespace TheMazeKeeper.Logic.MapStructure
                 lastObstacle.RemoveElement();
                 count++;
             }
-            while(count < density);            
+            while(count < density * mapRows );
+
+            AddRandomGem(1);
+
+            AddRandomTramp(1);
         }
 
         //Generate Gem
-        public void AddRandomGem(int number, int currentTurn)
+        public void AddRandomGem(int currentTurn)
         {
             int x;
             int y;
             Random random = new Random();
 
-            for (int i = 0; i < number; i++)
+            for (int i = 0; i < mapRows; i++)
             {
                 do
                 {
@@ -85,12 +88,12 @@ namespace TheMazeKeeper.Logic.MapStructure
                     y = random.Next(mapRows);
                 }
                 while (!map[x, y].IsValidForPlacement());
-                map[x, y].PlaceElement(new Gem(currentTurn/density + 1,currentTurn, x, y));
+                map[x, y].PlaceElement(new Gem(currentTurn * density, currentTurn, x, y));
             }
         }
 
         //Generate Tramp
-        public void AddRandomTramp(int number, int currentTurn)
+        public void AddRandomTramp(int currentTurn)
         {
             string[] tramps = {"Energy Siphon", "Sluggish Field"};
             Random random = new Random();
@@ -99,7 +102,7 @@ namespace TheMazeKeeper.Logic.MapStructure
             int x;
             int y;
 
-            for (int i = 0; i < number; i++)
+            for (int i = 0; i < mapRows; i++)
             {
                 do
                 {
@@ -133,7 +136,6 @@ namespace TheMazeKeeper.Logic.MapStructure
 
         
         //Generate Static elements
-
         MapCell addRandomElement(string element)
         {
             Random random = new Random();
@@ -202,6 +204,6 @@ namespace TheMazeKeeper.Logic.MapStructure
             return check;
         }
 
-        public MapCell[,] GetCell { get => map; }  
+        public MapCell[,] GetCells { get => map; }  
     }
 }

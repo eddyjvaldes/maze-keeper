@@ -15,40 +15,40 @@ namespace TheMazeKeeper.Logic.GameManagement
             this.name = name;
         }
 
-        public bool Move(int direction, MapCell[,] map, int currentDuration)
+        public bool Move(int direction, MapCell[,] map, int currentTurn)
         {
-            int check = hero.Energy;
+            int check = hero.GetEnergy;
 
             switch (direction)
             {
                 //check above
                 case 1:
-                    hero.MoveDirection(new Vector2(-1, 0), map, currentDuration);
+                    hero.MoveDirection(new Vector2(-1, 0), map, currentTurn);
                     break;
                 //check under
                 case 2:
-                    hero.MoveDirection(new Vector2(1, 0), map, currentDuration);
+                    hero.MoveDirection(new Vector2(1, 0), map, currentTurn);
                     break;
                 //check right
                 case 3:
-                    hero.MoveDirection(new Vector2(0, 1), map, currentDuration);
+                    hero.MoveDirection(new Vector2(0, 1), map, currentTurn);
                     break;
                 //check left
                 case 4:
-                    hero.MoveDirection(new Vector2(0, -1), map, currentDuration);
+                    hero.MoveDirection(new Vector2(0, -1), map, currentTurn);
                     break;
             }
 
-            return check != hero.Energy;
+            return check != hero.GetEnergy;
         }
     
         public bool UsePower(int currentTurn)
         {
-            int check = hero.Power.Cooldown;
+            int check = hero.GetPower.Cooldown;
 
             hero.UsePower(currentTurn);
 
-            return check != hero.Power.Cooldown;
+            return check != hero.GetPower.Cooldown;
         }
 
         public void AddScore(int points)
@@ -60,5 +60,11 @@ namespace TheMazeKeeper.Logic.GameManagement
         {
             this.hero = hero;
         }
+
+        public string Name { get => name; }
+
+        public Hero GetHero { get => hero; }
+
+        public int GetScore { get => score; }
     }
 }

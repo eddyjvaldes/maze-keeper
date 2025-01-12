@@ -15,8 +15,8 @@ namespace TheMazeKeeper.Logic.GameElement
             
             Dictionary<string, (string, int)> trampBase = new Dictionary<string, (string, int)>
             {
-                {"Energy Siphon", ("Drained",6)},
-                {"Sluggish Field", ("Slowed", 4)},
+                {"Energy Siphon", ("Drained",8)},
+                {"Sluggish Field", ("Slowed", 7)},
             };
 
             var attributes = trampBase[name];

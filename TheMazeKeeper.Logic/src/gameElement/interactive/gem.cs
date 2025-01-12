@@ -11,7 +11,7 @@ namespace TheMazeKeeper.Logic.GameElement
             this.points = points;
             position = new Vector2(x, y);
             passable = true;
-            duration = currentTurn;
+            duration = currentTurn + 10;
         }
 
         public void Grow(int extraPoints)

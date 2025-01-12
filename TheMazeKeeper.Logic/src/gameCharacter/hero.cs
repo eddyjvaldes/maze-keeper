@@ -48,7 +48,10 @@ namespace TheMazeKeeper.Logic.GameCharacter
 
                 if (newCell.IsAccessible()) 
                 {
+                   newCell.AddOccupant(this);
+                   map[(int)position.X, (int)position.Y].RemoveOccupant();
                    position = newPosition;
+
                    currentEnergy--;
 
                    if (newCell.HasElement())
@@ -58,18 +61,24 @@ namespace TheMazeKeeper.Logic.GameCharacter
                             Gem gem = (Gem)newCell.GetElement;
                             player.AddScore(gem.GetPoints);
                         }   
-                        else if (newCell.GetElement is Interactive)
+                        else if (newCell.GetElement is Tramp)
                         {
-                            ApplyNewStatus(newCell.GetElement.Getname, currentEnergy);
+                            Tramp tramp = (Tramp)newCell.GetElement;
+                            ApplyNewStatus(tramp.Effect, currentEnergy);
                         }
+
+                        newCell.RemoveElement();
                    }
                 }
         }
 
         public void UsePower(int currentTurn)
         {
-            if (currentEnergy - power.EnergyCost >= 0)
-                ApplyStatusEffects(new Status(power.Activate(currentTurn), currentTurn));
+            if (currentEnergy - power.EnergyCost >= 0 && power.Cooldown <= currentTurn)
+            {
+                currentEnergy-= power.EnergyCost;
+                ApplyNewStatus(power.Activate(currentTurn), currentTurn);
+            }
         }
 
         public void HeroRecovery()
@@ -80,18 +89,25 @@ namespace TheMazeKeeper.Logic.GameCharacter
 
         public void UpdateStatusEffects(int currentTurn)
         {
-            List<int> indexStatesToRemove = new List<int>();
-
-            for (int i = 0; i < listStates.Count; i++)
+            bool check = false;
+ 
+            while(!check)
             {
-                if (listStates[i].Duration >= currentTurn)
-                    ApplyStatusEffects(listStates[i]);
-                else
-                    indexStatesToRemove.Add(i);   
+                check = true;
+
+                for (int i = 0; i < listStates.Count; i++)
+                {
+                    if (listStates[i].Duration < currentTurn)
+                    {
+                        check = false;
+                        listStates.RemoveAt(i);
+                        break;
+                    }
+                }
             }
 
-            for (int i = 0; i < indexStatesToRemove.Count; i++)
-                listStates.RemoveAt(indexStatesToRemove[i]);
+            for (int i = 0; i < listStates.Count; i++)
+                ApplyStatusEffects(listStates[i]);
         }
 
         void ApplyStatusEffects(Status status)
@@ -117,15 +133,23 @@ namespace TheMazeKeeper.Logic.GameCharacter
 
             if (check)
             {
-                listStates.Add(new Status(name, currentTurn));
+                listStates.Add(new Status(statusName, currentTurn));
                 ApplyStatusEffects(listStates[listStates.Count - 1]);
             }
         }
 
         public string Name { get => name; }
+
         public Vector2 Position { get => position; }
-        public int Energy { get => currentEnergy; }
-        public int Iniciative { get => currentIniciative; }
-        public Power Power { get => power; }
+
+        public int GetEnergy { get => currentEnergy; }
+
+        public int GetIniciative { get => currentIniciative; }
+
+        public Power GetPower { get => power; }
+
+        public List<Status> GetListStates { get => listStates; }
+
+        public Player GetPlayer { get => player; }
     }
 }

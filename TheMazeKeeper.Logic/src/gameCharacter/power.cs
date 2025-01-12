@@ -13,9 +13,9 @@ namespace TheMazeKeeper.Logic.GameCharacter
         {
             Dictionary<string, (string, int, int)> PowersBase = new Dictionary<string, (string, int, int)>
             {
-                {"Adrenaline Rush", ("Adrenaline Boost", 8, 4)},
-                {"Swift Reflexes", ("Reflexive Frenzy", 3, 3)},
-                {"Quick Surge", ("Surge of Momentum", 5, 3)},
+                {"Adrenaline Rush", ("Adrenaline Boost", 8, 3)},
+                {"Swift Reflexes", ("Reflexive Frenzy", 3, 1)},
+                {"Quick Surge", ("Surge of Momentum", 5, 2)},
             };
 
             this.name = name;
@@ -33,6 +33,9 @@ namespace TheMazeKeeper.Logic.GameCharacter
         }
 
         public int Cooldown { get => currentCooldown; }
+
         public int EnergyCost { get => energyCost; }
+        
+        public string Name { get => name; }
     }
 }
