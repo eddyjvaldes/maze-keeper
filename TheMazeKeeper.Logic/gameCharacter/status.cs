@@ -5,16 +5,17 @@ namespace TheMazeKeeper.Logic.GameCharacter
         string name;
 
         int effectsEnergy;
-        int effectsIniciative;
+        int effectsInitiative;
+
         int duration;
         int currentDuration;
 
-        //name, (duration, energy, iniciative)
-        public Status(string name, int CurrentTurn)
+        public Status(string name, int currentTurn)
         {
-            currentDuration = duration + CurrentTurn;
+            this.name = name;
 
-            Dictionary<string, (int, int, int)> statesBase = new Dictionary<string, (int, int, int)>
+            // Dictionary<name, (duration, energy, initiative)>
+            var statesBase = new Dictionary<string, (int, int, int)>
             {
                 {"Adrenaline Boost", (3, 3, 0)},
                 {"Reflexive Frenzy", (2, 0, 3)},
@@ -23,17 +24,18 @@ namespace TheMazeKeeper.Logic.GameCharacter
                 {"Slowed", (2, 0, -3)},
             };
 
-            this.name = name;
-            
+
             var status = statesBase[name];
             duration = status.Item1;
             effectsEnergy = status.Item2;
-            effectsIniciative = status.Item3;
+            effectsInitiative = status.Item3;
+
+            RebootDuration(currentTurn);
         }
 
-        public int[] Effect() 
-        { 
-            return new int[] {effectsEnergy, effectsIniciative}; 
+        public (int, int) GetEffect()
+        {
+            return (effectsEnergy, effectsInitiative);
         }
 
         public void RebootDuration(int currentTurn)
@@ -41,7 +43,8 @@ namespace TheMazeKeeper.Logic.GameCharacter
             currentDuration = currentTurn + duration;
         }
 
-        public string Name { get => name; }
-        public int Duration { get => currentDuration; }
+        public string GetName { get => name; }
+
+        public int GetDuration { get => currentDuration; }
     }
 }

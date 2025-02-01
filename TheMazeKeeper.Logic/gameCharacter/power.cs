@@ -3,15 +3,17 @@ namespace TheMazeKeeper.Logic.GameCharacter
     class Power
     {
         string name;
+
         string effect;
-        int cooldown;
-        int currentCooldown = 0;
         int energyCost;
 
-        //name, (effect, cooldown, energyCost)
+        int cooldown;
+        int currentCooldown = 0;
+
         public Power(string name)
         {
-            Dictionary<string, (string, int, int)> PowersBase = new Dictionary<string, (string, int, int)>
+            // Dictionary<name, (effect, cooldown, energyCost)>
+            var PowersBase = new Dictionary<string, (string, int, int)>
             {
                 {"Adrenaline Rush", ("Adrenaline Boost", 8, 3)},
                 {"Swift Reflexes", ("Reflexive Frenzy", 3, 1)},
@@ -19,7 +21,7 @@ namespace TheMazeKeeper.Logic.GameCharacter
             };
 
             this.name = name;
-            
+
             var attributes = PowersBase[name];
             effect = attributes.Item1;
             cooldown = attributes.Item2;
@@ -29,13 +31,14 @@ namespace TheMazeKeeper.Logic.GameCharacter
         public string Activate(int CurrentTurn)
         {
             currentCooldown = CurrentTurn + cooldown;
+
             return effect;
         }
 
-        public int Cooldown { get => currentCooldown; }
+        public int GetCooldown { get => currentCooldown; }
 
-        public int EnergyCost { get => energyCost; }
-        
-        public string Name { get => name; }
+        public int GetEnergyCost { get => energyCost; }
+
+        public string GetName { get => name; }
     }
 }

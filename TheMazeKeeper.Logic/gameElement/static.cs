@@ -1,21 +1,22 @@
-using System.Numerics;
-
 namespace TheMazeKeeper.Logic.GameElement
 {
     class Static : Element
     {
         public Static(string name, int x, int y)
         {
-            position = new Vector2(x, y);
+            this.name = name;
 
-            Dictionary<string, bool> staticBase = new Dictionary<string, bool>
+            this.x = x;
+            this.y = y;
+
+            // Dictionary <name, passable>
+            var staticBase = new Dictionary<string, bool>
             {
-                {"map Wall", false},
+                {"map wall", false},
                 {"tree", false},
                 {"rock", false},
             };
 
-            this.name = name;
             passable = staticBase[name];
         }
     }
