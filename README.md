@@ -7,13 +7,10 @@ Este es un juego de consola desarrollado en C# como parte de la asignatura progr
 ## 🚀 Instalación y ejecución
 
 1. Clonar el repositorio
-
-    ``` sh
-    git clone https:
+    ```sh
+    git clone https://github.com/eddyjvaldes/maze-keeper.git
     ```
-
 2. Ejecutar el juego con .NET
-
     ```sh
     cd maze-keeper
     dotnet run --project TheMazeKeeper.Console
